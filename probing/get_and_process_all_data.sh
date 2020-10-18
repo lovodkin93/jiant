@@ -14,8 +14,8 @@
 JIANT_DATA_DIR=${1:-"$HOME/glue_data"}  # path to glue_data directory
 
 ## Configure these for your environment ##
-PATH_TO_ONTONOTES="/nfs/jsalt/home/iftenney/ontonotes/ontonotes/conll-formatted-ontonotes-5.0"
-PATH_TO_SPR1_RUDINGER="/nfs/jsalt/home/iftenney/decomp.net/spr1"
+PATH_TO_ONTONOTES=/cs/labs/oabend/lovodkin93/jiant_rep/conll-formatted-ontonotes-5.0-12_copy/conll-formatted-ontonotes-5.0/ #/cs/labs/oabend/lovodkin93/jiant_rep/conll-formatted-ontonotes-5.0-12/conll-formatted-ontonotes-5.0
+PATH_TO_SPR1_RUDINGER=/cs/labs/oabend/lovodkin93/jiant_rep/jiant-ep_frozen_20190723/probing/data/spr1
 
 ## Don't modify below this line. ##
 

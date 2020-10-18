@@ -86,7 +86,7 @@ def convert_file(fname):
     log.info("Processing file: %s", fname)
     record_iter = utils.load_json_data(fname)
     log.info("  saving to %s", new_name)
-    with tf.python_io.TFRecordWriter(new_name) as writer:
+    with tf.compat.v1.python_io.TFRecordWriter(new_name) as writer:
         for record in tqdm(record_iter):
             example = convert_to_example(record)
             writer.write(example.SerializeToString())

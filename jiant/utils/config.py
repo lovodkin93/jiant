@@ -11,7 +11,7 @@ from typing import Iterable, Sequence, Type, Union
 
 import pyhocon
 
-from jiant.utils import hocon_writer
+from jiant.jiant.utils import hocon_writer
 
 
 log.basicConfig(format="%(asctime)s: %(message)s", datefmt="%m/%d %I:%M:%S %p", level=log.INFO)

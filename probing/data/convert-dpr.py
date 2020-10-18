@@ -13,7 +13,7 @@ import os
 import sys
 
 import pandas as pd
-from nltk.tokenize.moses import MosesTokenizer
+from sacremoses import MosesTokenizer
 
 log.basicConfig(format="%(asctime)s: %(message)s", datefmt="%m/%d %I:%M:%S %p", level=log.INFO)
 

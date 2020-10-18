@@ -16,7 +16,7 @@ from sklearn import metrics
 import numpy as np
 import pandas as pd
 
-from jiant.utils import utils
+from jiant.jiant.utils import utils
 
 from typing import Dict, Iterable, List, Tuple
 
@@ -422,8 +422,32 @@ class Predictions(object):
                 else:  # a starts later
                     return max(0, a[0] - b[1])
 
+
             span_distance = [span_sep(a, b) for a, b in zip(df["span1"], df["span2"])]
             d["span_distance"] = _expand_runs(span_distance, len(self.all_labels))
+
+        if "span1" in df.columns:
+            log.info("span1 detected; adding span1_length to long-form " "DataFrame.")
+
+            def _get_len(span):
+                return (span[1] - span[0])
+
+            span1_length = [_get_len(a) for a in df["span1"]]
+            d["span1_length"] = _expand_runs(span1_length, len(self.all_labels))
+
+            if "span2" in df.columns:
+                log.info("span2 detected; adding span2_length and span1_span2_length to long-form " "DataFrame.")
+
+                def span_len(a, b):
+                    return max(b[1] - a[0], a[1] - b[0])
+
+                span2_length = [_get_len(a) for a in df["span2"]]
+                d["span2_length"] = _expand_runs(span2_length, len(self.all_labels))
+
+                span1_span2_length = [span_len(a, b) for a, b in zip(df["span1"], df["span2"])]
+                d["span1_span2_length"] = _expand_runs(span1_span2_length, len(self.all_labels))
+
+
         # Reconstruct a DataFrame.
         long_df = pd.DataFrame(d)
         log.info("Done!")
@@ -490,7 +514,7 @@ class Predictions(object):
 
         ##
         # Compute stratified scores by special fields
-        for field in ["info.height", "span_distance"]:
+        for field in ["info.height", "span_distance", "span1_length", "span2_length", "span1_span2_length"]:
             if field not in long_df.columns:
                 continue
             log.info(

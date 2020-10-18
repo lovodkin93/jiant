@@ -25,7 +25,7 @@ function run_exp() {
     OVERRIDES=$2
     declare -a args
     args+=( --config_file "${CONFIG_FILE}" )
-    args+=( -o "${OVERRIDES}" --remote_log )
+    args+=( -o "${OVERRIDES}"  ) #FIXME: add "--remote_log" (without the "") right before the closing bracket
     if [ ! -z $NOTIFY_EMAIL ]; then
         args+=( --notify "$NOTIFY_EMAIL" )
     fi
@@ -179,9 +179,9 @@ function bert_lex_exp() {
 function bert_mix_exp() {
     # Run BERT with ELMo-style scalar mixing across layers.
     # Usage: bert_mix_exp <task_name> <bert_model_name>
-    OVERRIDES="exp_name=bert-${2}-mix-${1}, run_name=run"
+    OVERRIDES="exp_name=${2}-mix-${1}, run_name=run"
     OVERRIDES+=", target_tasks=$1"
-    OVERRIDES+=", input_module=bert-$2"
+    OVERRIDES+=", input_module=$2"
     OVERRIDES+=", bert_embeddings_mode=mix"
     run_exp "config/edgeprobe/edgeprobe_bert.conf" "${OVERRIDES}"
 }
